@@ -42,7 +42,7 @@
 //!     let client = Client::open(option_env!("TEST_REDIS_URI").unwrap_or("redis://127.0.0.1"))?;
 //!     let mut connection = client.get_connection()?;
 //!
-//!     let mut graph = Graph::open(connection, "MotoGP".to_string())?;
+//!     let mut graph = Graph::open(&mut connection, "MotoGP".to_string())?;
 //!
 //!     // Create six nodes (three riders, three teams) and three relationships between them.
 //!     graph.mutate("CREATE (:Rider {name: 'Valentino Rossi', birth_year: 1979})-[:rides]->(:Team {name: 'Yamaha'}), \
