@@ -1,10 +1,16 @@
 use redis::{Client, Connection};
 use redisgraph::graph::Graph;
+use r2d2_redis::{r2d2, redis, RedisConnectionManager};
+use r2d2_redis::r2d2::PooledConnection;
 
-pub fn get_connection() -> Connection {
-    let client = Client::open(option_env!("TEST_REDIS_URI").unwrap_or("redis://127.0.0.1"))
-        .expect("Failed to open client!");
-    client.get_connection().expect("Failed to get connection!")
+pub fn get_connection() -> PooledConnection<RedisConnectionManager> {
+    let manager  = RedisConnectionManager::new("redis://localhost").unwrap();
+    let pool = r2d2::Pool::builder()
+        .max_size(20)
+        .build(manager)
+        .unwrap();
+    let  mut conn = pool.get().unwrap();
+    return conn;
 }
 
 #[allow(dead_code)]
