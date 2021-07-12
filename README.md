@@ -33,7 +33,7 @@ $ docker run --name redisgraph-test -d --rm -p 6379:6379 redislabs/redisgraph
 Then, try out this code:
 
 ```rust
-use redis::Client;
+use r2d2_redis::{r2d2, redis, RedisConnectionManager};
 use redisgraph::{Graph, RedisGraphResult};
 
 fn main() -> RedisGraphResult<()> {
