@@ -1,6 +1,12 @@
 # r2d2-redisgraph-rs
 
+## Introduction
+
 `r2d2-redisgraph-rs` is an extension of [redisgraph](https://github.com/malte-v/redisgraph-rs.git). The original crate does not support using connections from [r2d2](https://github.com/malte-v/redisgraph-rs.git) connection pool to establish a connection with redis graph database. This problem is solved in `r2d2-redisgraph-rs`. A r2d2 connection pool can be created with mulitple threads, the thread from the connection pool can be used to establish a connection with redis graph database resulting in having mulitple connections to the database in a single application. The threads performing write operations are mutually exclusive.
+
+## Getting Started
+
+### Add dependency
 
 If you want to use this crate, add this to your Cargo.toml:
 
@@ -14,19 +20,14 @@ r2d2_redis = "0.14.0"
 **Warning**: This library has not been thoroughly tested yet and some features are still missing.
 Expect bugs and breaking changes.
 
-## Resources
+### Setup a redis graph database using docker
 
-- RedisGraph documentation: [redisgraph.io][]
-
-## Example
-
-First, run RedisGraph on your machine using
 
 ```sh
 $ docker run --name redisgraph-test -d --rm -p 6379:6379 redislabs/redisgraph
 ```
 
-Then, try out this code:
+### Sample Code
 
 ```rust
 use r2d2_redis::{r2d2, redis, RedisConnectionManager};
@@ -68,6 +69,10 @@ fn main() -> RedisGraphResult<()> {
     Ok(())
 }
 ```
+
+## Resources
+
+- RedisGraph documentation: [redisgraph.io][]
 
 [redisgraph.io]:https://redisgraph.io
 [docs.rs/redisgraph]:https://docs.rs/redisgraph
