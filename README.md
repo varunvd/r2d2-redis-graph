@@ -1,50 +1,53 @@
-[![githubactions](https://github.com/malte-v/redisgraph-rs/workflows/Rust/badge.svg)](https://github.com/malte-v/redisgraph-rs/actions)
-[![Latest Version](https://img.shields.io/crates/v/redisgraph.svg)](https://crates.io/crates/redisgraph)
-[![documentation](https://docs.rs/redisgraph/badge.svg)](https://docs.rs/redisgraph)
+# r2d2-redisgraph-rs
 
-# redisgraph-rs
+## Introduction
 
-`redisgraph-rs` is an idiomatic Rust client for RedisGraph, the graph database by Redis.
+`r2d2-redisgraph-rs` is an extension of [redisgraph](https://github.com/malte-v/redisgraph-rs.git). The original crate does not support using connections from [r2d2](https://github.com/malte-v/redisgraph-rs.git) connection pool to establish a connection with redis graph database. This problem is solved in `r2d2-redisgraph-rs`. A r2d2 connection pool can be created with mulitple threads, the thread from the connection pool can be used to establish a connection with redis graph database resulting in having mulitple connections to the database in a single application. The threads performing write operations are mutually exclusive.
 
-This crate parses responses from RedisGraph and converts them into ordinary Rust values.
-It exposes a very flexible API that allows you to retrieve a single value, a single record
-or multiple records using only one function: [`Graph::query`](https://docs.rs/redisgraph/0.1.0/redisgraph/graph/struct.Graph.html#method.query).
+## Getting Started
+
+### Add dependency
 
 If you want to use this crate, add this to your Cargo.toml:
 
 ```ini
 [dependencies]
 redis = "0.15.1"
-redisgraph = "0.1.0"
+r2d2redisgraph = { path = "/path/to/clone/repo" }
+r2d2_redis = "0.14.0"
 ```
 
 **Warning**: This library has not been thoroughly tested yet and some features are still missing.
 Expect bugs and breaking changes.
 
-## Resources
+### Setup a redis graph database using docker
 
-- RedisGraph documentation: [redisgraph.io][]
-- API Reference: [docs.rs/redisgraph]
-
-## Example
-
-First, run RedisGraph on your machine using
 
 ```sh
 $ docker run --name redisgraph-test -d --rm -p 6379:6379 redislabs/redisgraph
 ```
 
-Then, try out this code:
+### Sample Code
 
 ```rust
-use redis::Client;
-use redisgraph::{Graph, RedisGraphResult};
+use r2d2_redis::{r2d2, redis, RedisConnectionManager};
+use r2d2redisgraph::{Graph, RedisGraphResult};
 
 fn main() -> RedisGraphResult<()> {
-    let client = Client::open("redis://127.0.0.1")?;
-    let mut connection = client.get_connection()?;
+    //Create a connection manager
+    let manager = RedisConnectionManager::new("redis://localhost").unwrap();
 
-    let mut graph = Graph::open(connection, "MotoGP".to_string())?;
+    // Create a pool from the connection manager
+    let pool = r2d2::Pool::builder()
+        .max_size(20)
+        .build(manager)
+        .unwrap();
+
+    //Create connection from pool
+    let  mut connection = pool.get().unwrap();
+
+    //Create a graph struct using the connection
+    let mut graph = Graph::open(&mut connection, "MotoGP".to_string())?;
 
     // Create six nodes (three riders, three teams) and three relationships between them.
     graph.mutate("CREATE (:Rider {name: 'Valentino Rossi', birth_year: 1979})-[:rides]->(:Team {name: 'Yamaha'}), \
@@ -66,6 +69,10 @@ fn main() -> RedisGraphResult<()> {
     Ok(())
 }
 ```
+
+## Resources
+
+- RedisGraph documentation: [redisgraph.io][]
 
 [redisgraph.io]:https://redisgraph.io
 [docs.rs/redisgraph]:https://docs.rs/redisgraph

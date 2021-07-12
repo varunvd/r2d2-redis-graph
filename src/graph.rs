@@ -7,8 +7,8 @@ use crate::{
 };
 
 /// Represents a single graph in the database.
-pub struct Graph {
-    conn: Connection,
+pub struct Graph<'a> {
+    conn: &'a mut  Connection,
     name: String,
 
     labels: Vec<RedisString>,
@@ -16,13 +16,13 @@ pub struct Graph {
     property_keys: Vec<RedisString>,
 }
 
-impl Graph {
+impl<'a> Graph<'a> {
     /// Opens the graph with the given name from the database.
     ///
     /// If the graph does not already exist, creates a new graph with the given name.
-    pub fn open(conn: Connection, name: String) -> RedisGraphResult<Self> {
+    pub fn open(conn: &'a mut Connection, name: String) -> RedisGraphResult<Self> {
         let mut graph = Self {
-            conn,
+            conn ,
             name,
             labels: Vec::new(),
             relationship_types: Vec::new(),
@@ -77,7 +77,7 @@ impl Graph {
     pub fn delete(mut self) -> RedisGraphResult<()> {
         redis::cmd("GRAPH.DELETE")
             .arg(self.name())
-            .query::<()>(&mut self.conn)
+            .query::<()>(self.conn)
             .map_err(RedisGraphError::from)
     }
 
@@ -131,12 +131,12 @@ impl Graph {
         &self.property_keys[..]
     }
 
-    fn request(&mut self, query: &str) -> RedisGraphResult<Value> {
+    fn request(&mut self, query: &str) -> RedisGraphResult<Value> { 
         redis::cmd("GRAPH.QUERY")
             .arg(self.name())
             .arg(query)
             .arg("--compact")
-            .query(&mut self.conn)
+            .query(self.conn)
             .map_err(RedisGraphError::from)
     }
 

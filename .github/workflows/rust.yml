@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     
     services:
-      redisgraph:
+      r2d2redisgraph:
         image: redislabs/redisgraph:edge
         ports:
           - 6379:6379

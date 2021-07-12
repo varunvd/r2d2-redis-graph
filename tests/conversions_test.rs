@@ -2,7 +2,7 @@ use maplit::hashmap;
 use serial_test::serial;
 
 use common::*;
-use redisgraph::{
+use r2d2redisgraph::{
     result_set::{Edge, Node, Path, RawPath, Scalar},
     RedisString,
 };

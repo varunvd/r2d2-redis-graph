@@ -1,22 +1,24 @@
 [package]
-name = "redisgraph"
+name = "r2d2redisgraph"
 version = "0.3.0"
-authors = ["Malte Voos <voos.malte@gmail.com>"]
+authors = ["Varun Deshpande <varun.vd51@gmail.com>", "Malte Voos <voos.malte@gmail.com>"]
 keywords = ["redis", "database", "graph-database"]
 description = "A Rust client for RedisGraph."
-homepage = "https://github.com/malte-v/redisgraph-rs"
-repository = "https://github.com/malte-v/redisgraph-rs"
-documentation = "https://docs.rs/redisgraph"
+homepage = "https://github.com/varunvd/r2d2-redis-graph.git"
+repository = "https://github.com/varunvd/r2d2-redis-graph.git"
 license = "MIT"
 readme = "README.md"
 edition = "2018"
 
 [dependencies]
-redis = "0.15.1"
+redis = "0.20.0"
 num = "0.2.1"
 num-derive = "0.3.0"
 num-traits = "0.2.11"
+r2d2_redis = "0.14.0"
+chrono = "0.4"
 
 [dev-dependencies]
 serial_test = "0.4.0"
 maplit = "1.0.2"
+chrono = "0.4"
