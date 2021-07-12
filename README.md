@@ -1,8 +1,4 @@
-[![githubactions](https://github.com/malte-v/redisgraph-rs/workflows/Rust/badge.svg)](https://github.com/malte-v/redisgraph-rs/actions)
-[![Latest Version](https://img.shields.io/crates/v/redisgraph.svg)](https://crates.io/crates/redisgraph)
-[![documentation](https://docs.rs/redisgraph/badge.svg)](https://docs.rs/redisgraph)
-
-# redisgraph-rs
+# r2d2-redisgraph-rs
 
 `redisgraph-rs` is an idiomatic Rust client for RedisGraph, the graph database by Redis.
 
@@ -15,7 +11,8 @@ If you want to use this crate, add this to your Cargo.toml:
 ```ini
 [dependencies]
 redis = "0.15.1"
-redisgraph = "0.1.0"
+redisgraph = { path = "/path/to/clone/repo" }
+r2d2_redis = "0.14.0"
 ```
 
 **Warning**: This library has not been thoroughly tested yet and some features are still missing.
