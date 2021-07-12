@@ -21,7 +21,6 @@ Expect bugs and breaking changes.
 ## Resources
 
 - RedisGraph documentation: [redisgraph.io][]
-- API Reference: [docs.rs/redisgraph]
 
 ## Example
 
