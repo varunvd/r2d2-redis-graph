@@ -1,6 +1,6 @@
 # r2d2-redisgraph-rs
 
-`redisgraph-rs` is an idiomatic Rust client for RedisGraph, the graph database by Redis.
+`r2d2-redisgraph-rs` is an idiomatic Rust client for RedisGraph, the graph database by Redis.
 
 This crate parses responses from RedisGraph and converts them into ordinary Rust values.
 It exposes a very flexible API that allows you to retrieve a single value, a single record
@@ -11,7 +11,7 @@ If you want to use this crate, add this to your Cargo.toml:
 ```ini
 [dependencies]
 redis = "0.15.1"
-redisgraph = { path = "/path/to/clone/repo" }
+r2d2redisgraph = { path = "/path/to/clone/repo" }
 r2d2_redis = "0.14.0"
 ```
 
@@ -34,7 +34,7 @@ Then, try out this code:
 
 ```rust
 use r2d2_redis::{r2d2, redis, RedisConnectionManager};
-use redisgraph::{Graph, RedisGraphResult};
+use r2d2redisgraph::{Graph, RedisGraphResult};
 
 fn main() -> RedisGraphResult<()> {
     //Create a connection manager
