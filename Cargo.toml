@@ -1,11 +1,11 @@
 [package]
 name = "r2d2redisgraph"
 version = "0.3.0"
-authors = ["Varun Deshpande <varun.vd51@gmail.com>"]
+authors = ["Varun Deshpande <varun.vd51@gmail.com>", "Malte Voos <voos.malte@gmail.com>"]
 keywords = ["redis", "database", "graph-database"]
 description = "A Rust client for RedisGraph."
-homepage = "https://gitlab.com/flyweightgroup/r2d2-redis-graph.git"
-repository = "https://gitlab.com/flyweightgroup/r2d2-redis-graph.git"
+homepage = "https://github.com/varunvd/r2d2-redis-graph.git"
+repository = "https://github.com/varunvd/r2d2-redis-graph.git"
 license = "MIT"
 readme = "README.md"
 edition = "2018"
