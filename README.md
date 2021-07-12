@@ -37,9 +37,19 @@ use r2d2_redis::{r2d2, redis, RedisConnectionManager};
 use redisgraph::{Graph, RedisGraphResult};
 
 fn main() -> RedisGraphResult<()> {
-    let client = Client::open("redis://127.0.0.1")?;
-    let mut connection = client.get_connection()?;
+    //Create a connection manager
+    let manager = RedisConnectionManager::new("redis://localhost").unwrap();
 
+    // Create a pool from the connection manager
+    let pool = r2d2::Pool::builder()
+        .max_size(20)
+        .build(manager)
+        .unwrap();
+
+    //Create connection from pool
+    let  mut connection = pool.get().unwrap();
+
+    //Create a graph struct using the connection
     let mut graph = Graph::open(&mut connection, "MotoGP".to_string())?;
 
     // Create six nodes (three riders, three teams) and three relationships between them.
