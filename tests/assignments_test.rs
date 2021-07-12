@@ -1,6 +1,6 @@
 mod common;
 
-use redisgraph::RedisGraphResult;
+use r2d2redisgraph::RedisGraphResult;
 use serial_test::serial;
 
 use common::*;

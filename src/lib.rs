@@ -36,7 +36,7 @@
 //!
 //! ```rust
 //! use redis::Client;
-//! use redisgraph::{Graph, RedisGraphResult};
+//! use r2d2redisgraph::{Graph, RedisGraphResult};
 //!
 //! fn main() -> RedisGraphResult<()> {
 //!     let client = Client::open(option_env!("TEST_REDIS_URI").unwrap_or("redis://127.0.0.1"))?;

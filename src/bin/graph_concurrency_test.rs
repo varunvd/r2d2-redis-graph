@@ -1,6 +1,6 @@
 use std::thread;
 use std::sync::{Arc, Mutex};
-use redisgraph::Graph;
+use r2d2redisgraph::Graph;
 use r2d2_redis::{r2d2, redis, RedisConnectionManager};
 use chrono::{DateTime, Utc};
 

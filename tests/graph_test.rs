@@ -1,6 +1,6 @@
 mod common;
 
-use redisgraph::Graph;
+use r2d2redisgraph::Graph;
 use serial_test::serial;
 use r2d2_redis::{r2d2, redis, RedisConnectionManager};
 

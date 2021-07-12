@@ -1,5 +1,5 @@
 use redis::{Client, Connection};
-use redisgraph::graph::Graph;
+use r2d2redisgraph::graph::Graph;
 use r2d2_redis::{r2d2, redis, RedisConnectionManager};
 use r2d2_redis::r2d2::PooledConnection;
 
