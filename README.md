@@ -1,10 +1,6 @@
 # r2d2-redisgraph-rs
 
-`r2d2-redisgraph-rs` is an idiomatic Rust client for RedisGraph, the graph database by Redis.
-
-This crate parses responses from RedisGraph and converts them into ordinary Rust values.
-It exposes a very flexible API that allows you to retrieve a single value, a single record
-or multiple records using only one function: [`Graph::query`](https://docs.rs/redisgraph/0.1.0/redisgraph/graph/struct.Graph.html#method.query).
+`r2d2-redisgraph-rs` is an extension of [redisgraph](https://github.com/malte-v/redisgraph-rs.git). The original crate does not support using connections from [r2d2](https://github.com/malte-v/redisgraph-rs.git) connection pool to establish a connection with redis graph database. This problem is solved in `r2d2-redisgraph-rs`. A r2d2 connection pool can be created with mulitple threads, the thread from the connection pool can be used to establish a connection with redis graph database resulting in having mulitple connections to the database in a single application
 
 If you want to use this crate, add this to your Cargo.toml:
 
